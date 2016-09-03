@@ -10,7 +10,7 @@ smaller development containers.
 Use this as base for your own containers:
 
 ```dockerfile
-FROM picymru-base
+FROM picymru/base
 RUN apk-install <pakckagename>
 
 CMD ["/bin/sh"]

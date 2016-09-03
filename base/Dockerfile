@@ -1,8 +1,15 @@
 FROM       alpine:3.4
 MAINTAINER Matthew Gall <matthew@picymru.org.uk>
 
-ADD ./apk-install /usr/sbin/apk-install
-RUN apk update && apk upgrade && \
-	rm -rf /var/cache/apk/*
+ADD dosu /usr/bin/dosu
+ADD apk-install /usr/bin/apk-install
 
-CMD ["/bin/sh"]
+RUN apk add --update --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ tini &&\
+    apk add --update --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing/ entr &&\
+    rm -rf /var/cache/apk/*
+    
+RUN chmod +x /usr/bin/dosu /usr/bin/apk-install && \
+    apk-install ca-certificates curl
+
+ENTRYPOINT ["/sbin/tini", "--"]
+CMD ['/bin/sh']
