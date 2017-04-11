@@ -1,4 +1,4 @@
-FROM       alpine:3.4
+FROM       alpine:3.5
 MAINTAINER Matthew Gall <matthew@picymru.org.uk>
 
 ADD dosu /usr/bin/dosu
